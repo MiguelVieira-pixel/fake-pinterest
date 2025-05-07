@@ -1,6 +1,6 @@
-from flask import Flask, render_template, url_for
-
-app = Flask(__name__)
+#criar as rotas do nosso site(links)
+from flask import render_template, url_for
+from FakePinterest import app
 
 @app.route("/")
 def homepage():
@@ -9,6 +9,3 @@ def homepage():
 @app.route("/profile/<user>")
 def profile(user):
     return render_template("profile.html", user=user)
-
-if __name__ == "__main__":
-    app.run(debug=True)
