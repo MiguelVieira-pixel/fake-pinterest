@@ -2,9 +2,18 @@
 from flask import render_template, url_for
 from FakePinterest import app
 from flask_login import login_required
-@app.route("/")
+
+from FakePinterest.forms import FormLogin, FormCreateAccount
+
+@app.route("/", methods=["GET", "POST"])
 def homepage():
-    return render_template("index.html")
+    formlogin = FormLogin()
+    return render_template("index.html", form=formlogin)
+
+@app.route("/createAccounte", methods=["GET", "POST"])
+def create_account():
+    formcreateaccount = FormCreateAccount()
+    return render_template("createAccount.html", form=formcreateaccount)
 
 @app.route("/profile/<user>")
 @login_required

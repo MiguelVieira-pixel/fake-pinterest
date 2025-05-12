@@ -9,7 +9,7 @@ class FormLogin(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
 
-class FormCreateCount(FlaskForm):
+class FormCreateAccount(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     username = StringField("Username", validators=[DataRequired()])
     passoword = PasswordField("Passoword", validators=[DataRequired(), Length(6,20), EqualTo("Confirm")])
