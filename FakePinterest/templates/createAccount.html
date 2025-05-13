@@ -1,0 +1,25 @@
+ {% extends "index.html"%}
+
+{% block title %}
+        Create account-FakePinterest
+    {% endblock %}
+{% block form %}
+<form method="post">
+{{ form.csrf_token }}
+
+{{ form.email.label() }}
+{{ form.email() }}
+
+{{ form.username.label() }}
+{{ form.username() }}
+
+{{ form.password.label() }}
+{{ form.password() }}
+
+{{ form.confirm.label() }}
+{{ form.confirm() }}
+
+{{ form.submit() }}
+
+</form>
+{% endblock %}

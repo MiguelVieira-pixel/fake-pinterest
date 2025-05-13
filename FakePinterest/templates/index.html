@@ -3,16 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FakePinterest</title>
+    <title>{% block title %}
+        FakePinterest
+    {% endblock %}</title>
 </head>
-<body>
-<h1>Fake Pinterest - Meu primeiro projeto</h1>
+{% block body %}
+    <body>
+    <h1>Fake Pinterest - Meu primeiro projeto</h1>
 
-<h2>linha separada por um espaço em branco</h2>
+    <h2>linha separada por um espaço em branco</h2>
+    {% block form %}
+        <form method="post">
+        {{ form.csrf_token }}
 
-<form method="post">
-{{form.csrf_token}}
-</form>
+        {{ form.email.label() }}
+        {{ form.email() }}
 
-</body>
+        {{ form.password.label() }}
+        {{ form.password() }}
+
+        {{ form.submit() }}
+
+        </form>
+    {% endblock %}
+    </body>
+{% endblock %}
 </html>

@@ -10,7 +10,7 @@ def homepage():
     formlogin = FormLogin()
     return render_template("index.html", form=formlogin)
 
-@app.route("/createAccounte", methods=["GET", "POST"])
+@app.route("/createAccount", methods=["GET", "POST"])
 def create_account():
     formcreateaccount = FormCreateAccount()
     return render_template("createAccount.html", form=formcreateaccount)

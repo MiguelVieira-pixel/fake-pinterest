@@ -5,14 +5,14 @@ from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationE
 from FakePinterest.models import User
 
 class FormLogin(FlaskForm):
-    imail = StringField("Email", validators=[DataRequired(), Email()])
+    email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
 
 class FormCreateAccount(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     username = StringField("Username", validators=[DataRequired()])
-    passoword = PasswordField("Passoword", validators=[DataRequired(), Length(6,20), EqualTo("Confirm")])
+    password = PasswordField("Passoword", validators=[DataRequired(), Length(6,20), EqualTo("Confirm")])
     confirm = PasswordField("Confirm", validators=[DataRequired(), EqualTo("Passoword")])
     submit = SubmitField("Create Account")
 
