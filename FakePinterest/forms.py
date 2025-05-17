@@ -12,8 +12,8 @@ class FormLogin(FlaskForm):
 class FormCreateAccount(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     username = StringField("Username", validators=[DataRequired()])
-    password = PasswordField("Passoword", validators=[DataRequired(), Length(6,20), EqualTo("Confirm")])
-    confirm = PasswordField("Confirm", validators=[DataRequired(), EqualTo("Passoword")])
+    password = PasswordField("Password", validators=[DataRequired(), Length(6,20), EqualTo("confirm")])
+    confirm = PasswordField("Confirm", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Create Account")
 
 def validate_email(self, email):
