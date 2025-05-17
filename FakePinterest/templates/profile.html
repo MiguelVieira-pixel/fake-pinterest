@@ -6,7 +6,12 @@
     <title>Profile FakePinterest</title>
 </head>
 <body>
-    <h1>User Profile: {{user}}</h1>
-    <a href="{{url_for('logout')}}">Voltar</a>
+<h1>User Profile: {{user.username}}</h1>
+<a href="{{url_for('logout')}}">Voltar</a>
+
+{% for imagem in user.post %}
+<img src="">
+{% endfor %}
+
 </body>
 </html>

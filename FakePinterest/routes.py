@@ -12,7 +12,7 @@ def homepage():
         user = User.query.filter_by(email=formLogin.email.data).first()
         if user and bcrypt.check_password_hash(user.password, formLogin.password.data):
             login_user(user, remember=True)
-            return redirect(url_for("profile", user=user.username))
+            return redirect(url_for("profile", id_usuario=user.id))
 
     return render_template("index.html", form=formLogin)
 
@@ -27,17 +27,21 @@ def create_account():
         database.session.add(user)
         database.session.commit()
         login_user(user, remember=True)
-        return redirect(url_for("profile", user=user.username))
+        return redirect(url_for("profile", id_usuario=user.id))
     
     # Se o formulário não for válido, imprime os erros
     if formcreateaccount.errors:
         print("Erros de validação:", formcreateaccount.errors)
     return render_template("createAccount.html", form=formcreateaccount)
 
-@app.route("/profile/<user>")
+@app.route("/profile/<id_usuario>")
 @login_required
-def profile(user):
-    return render_template("profile.html", user=user)
+def profile(id_usuario):
+    if int(id_usuario) == int(current_user.id):
+        return render_template("profile.html", user=current_user)
+    else:
+        user = User.query.get(int(id_usuario))
+        return render_template("profile.html", user=user)
 
 @app.route("/logout")
 @login_required
