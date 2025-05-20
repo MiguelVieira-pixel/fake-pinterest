@@ -9,8 +9,9 @@
 <h1>User Profile: {{user.username}}</h1>
 <a href="{{url_for('logout')}}">Voltar</a>
 
+<img src="{{ url_for('static', filename='photos_posts/default.png') }}">
 {% for imagem in user.post %}
-<img src="">
+
 {% endfor %}
 
 </body>
