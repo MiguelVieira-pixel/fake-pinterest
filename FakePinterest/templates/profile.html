@@ -6,13 +6,34 @@
     <title>Profile FakePinterest</title>
 </head>
 <body>
+
+
 <h1>User Profile: {{user.username}}</h1>
+
+{% if form %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    {{ form.photo()}}
+    {{ form.button_confirmation()}}
+
+</form>
+{% endif %}
+
 <a href="{{url_for('logout')}}">Voltar</a>
 
-<img src="{{ url_for('static', filename='photos_posts/default.png') }}">
-{% for imagem in user.post %}
 
-{% endfor %}
+<h2>Imagens do Usuário</h2>
+<ul>
+  {% for photo in user.posts %}
+    <li>
+      <p>Nome da imagem: {{ photo.imagem }}</p>
+      <img src="{{ url_for('static', filename='photos_posts/' ~ photo.imagem) }}"
+           alt="Imagem"
+           width="200">
+    </li>
+  {% endfor %}
+</ul>
+
 
 </body>
 </html>

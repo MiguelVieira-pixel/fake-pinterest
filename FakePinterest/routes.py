@@ -3,7 +3,9 @@ from flask import render_template, url_for,redirect
 from FakePinterest import app, database, bcrypt
 from FakePinterest.models import User, Post
 from flask_login import login_required, login_user, logout_user, current_user
-from FakePinterest.forms import FormLogin, FormCreateAccount
+from FakePinterest.forms import FormLogin, FormCreateAccount, FormPhotoPost
+import os
+from werkzeug.utils import secure_filename
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -34,17 +36,30 @@ def create_account():
         print("Erros de validação:", formcreateaccount.errors)
     return render_template("createAccount.html", form=formcreateaccount)
 
-@app.route("/profile/<id_usuario>")
+@app.route("/profile/<id_usuario>", methods=["GET", "POST"])
 @login_required
 def profile(id_usuario):
     if int(id_usuario) == int(current_user.id):
-        return render_template("profile.html", user=current_user)
+        form_photo = FormPhotoPost()
+        if form_photo.validate_on_submit():
+            file = form_photo.photo.data
+            secure_name = secure_filename(file.filename)
+            #Salva o arquivo na pasta 'static/phostos_posts'
+            path = os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config["UPLOAD_FOLDER"], secure_name)
+            file.save(path)
+            #Registra o post no banco de dados
+            photo = Post(imagem=secure_name, id_usuario=current_user.id)
+            database.session.add(photo)
+            database.session.commit()
+        return render_template("profile.html", user=current_user, form=form_photo)
     else:
         user = User.query.get(int(id_usuario))
-        return render_template("profile.html", user=user)
+        return render_template("profile.html", user=user, form=None)
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("homepage"))
+
+

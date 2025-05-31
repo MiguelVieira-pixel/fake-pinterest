@@ -1,6 +1,6 @@
 #criar os formularios do site
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, FileField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from FakePinterest.models import User
 
@@ -21,3 +21,6 @@ def validate_email(self, email):
     if user:
         return ValidationError("Email already registered")
     
+class FormPhotoPost(FlaskForm):
+    photo = FileField("Photo", validators=[DataRequired()])
+    button_confirmation = SubmitField("Post Photo")
