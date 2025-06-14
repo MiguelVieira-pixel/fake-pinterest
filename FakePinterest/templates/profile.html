@@ -1,27 +1,25 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile FakePinterest</title>
-</head>
+{% extends "index.html"%}
+{% block tittle %}
+    Profile - {{user.username}}
+{% endblock %}
+
 <body>
+{% include "navbar.html" %}
 
 
 <h1>User Profile: {{user.username}}</h1>
-
-{% if form %}
-<form method="POST" enctype="multipart/form-data">
-    {{ form.csrf_token }}
-    {{ form.photo()}}
-    {{ form.button_confirmation()}}
-
-</form>
-{% endif %}
-
-<a href="{{url_for('logout')}}">Voltar</a>
+{% block form %}
+  {% if form %}
+  <form method="POST" enctype="multipart/form-data">
+      {{ form.csrf_token }}
+      {{ form.photo()}}
+      {{ form.button_confirmation()}}
+  </form>
+  {% endif %}
+{% endblock %}
 
 
+{% block body %}
 <h2>Imagens do Usuário</h2>
 <ul>
   {% for photo in user.posts %}
@@ -33,7 +31,7 @@
     </li>
   {% endfor %}
 </ul>
-
-
 </body>
+{% endblock %}
+
 </html>

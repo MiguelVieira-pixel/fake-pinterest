@@ -62,4 +62,9 @@ def logout():
     logout_user()
     return redirect(url_for("homepage"))
 
+@app.route("/feed")
+@login_required
+def feed():
+    photos = Post.query.order_by(Post.data_criacao.desc()).all()
+    return render_template("feed.html",photos=photos)
 
